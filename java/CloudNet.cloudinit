@@ -1,0 +1,28 @@
+{
+  "optimizeFor": "OPENJDK11",
+  "minMemory": "2G",
+  "recommendedOperatingSystem": "debian10",
+  "prepareFolders": [
+    {
+      "path": "/cloud/launcher.jar",
+      "url": "~/cloudnet/3/launcher.jar?raw",
+      "onFailure": "LOG_AND_DISABLE"
+    },
+    {
+      "path": "/cloud/local/",
+      "url": "~/localstorage/cloud$[ENV_NAME]/local?aszip",
+      "unzip": true,
+      "onFailure": "LOG_AND_DISABLE"
+    }
+  ],
+  "onEnd": [
+    {
+      "path": "/cloud/local/",
+      "url": "~/localstorage/cloud$[ENV_NAME]/local",
+      "zip": true,
+      "onFailure": "LOG_AND_KEEP_RUNNING"
+    }
+  ],
+  "install": ["openjdk11","screen"],
+  "run": ["/cloud/start.sh"]
+}
